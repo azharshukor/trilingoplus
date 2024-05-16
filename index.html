@@ -118,8 +118,8 @@ h3 {
 </head>
 <body>
     <h1>Trilingo</h1>
-    <h2>Let's play a game!</h2>
-    <p>We'll show you some photos, and if you can say out what they are in Malay, you'll get a star ⭐.</p>
+    <h2>Time for a Malay test!</h2>
+    <p>Get ready to look at some pictures and tell us what it is in Malay.</p>
     <button class="button" role="button" id="startButton">Begin</button>
 
     <div id="question"></div>
@@ -216,7 +216,7 @@ h3 {
     var stars = score > 0 ? '⭐'.repeat(score) : '0';
 
     if (currentQuestionIndex === questions.length - 1) {
-        resultElement.innerHTML = `<h2>${result === "correct" ? "You are right!" : "You are wrong."}</h2>`;
+        resultElement.innerHTML = `<h2>${result === "correct" ? "Congratulations. You are right!" : "Oops, you didn't answer correctly."}</h2>`;
         resultElement.innerHTML += `<p>The correct answer is ${currentQuestion}</p>`;
         resultElement.innerHTML += `<h2>Your final score:<br>${stars}</h2>`;
         document.getElementById("next").textContent = "Try Again";
@@ -224,7 +224,7 @@ h3 {
             window.location.href = window.location.origin + window.location.pathname;
         });
     } else {
-        resultElement.innerHTML = `<h2>${result === "correct" ? "You are right!" : "You are wrong."}</h2>`;
+        resultElement.innerHTML = `<h2>${result === "correct" ? "Congratulations. You are right!" : "Oops, you didn't answer correctly."}</h2>`;
         resultElement.innerHTML += `<p>The correct answer is ${currentQuestion}</p>`;
         resultElement.innerHTML += `<h2>Your score:<br>${stars}</h2>`;
         document.getElementById("next").textContent = "Next Question";
@@ -266,7 +266,7 @@ h3 {
             setTimeout(function() {
                 recognition.stop();
                 if (!userAnswer) {
-                    recordedAnswer = "Sorry, we couldn't hear what you said.";
+                    recordedAnswer = "Sorry, we couldn't hear you.";
                     showRecordedAnswer(recordedAnswer);
                 }
                  }, 5000);
@@ -282,7 +282,7 @@ h3 {
         function showRecordedAnswer(answer) {
             document.getElementById("question").style.display = "none";
             document.getElementById("timer").style.display = "none";
-            document.getElementById("recordedAnswer").innerHTML = `<h3>Here's what we heard you say:<br></h3><p>${answer}</p>`;
+            document.getElementById("recordedAnswer").innerHTML = `<h3>What we heard you say:<br></h3><p>${answer}</p>`;
             document.getElementById("recordedAnswer").style.display = "block";
             document.getElementById("checkResult").style.display = "block";
         }
