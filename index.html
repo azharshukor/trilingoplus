@@ -119,8 +119,8 @@ h3 {
 <body>
     <h1>Trilingo</h1>
     <h2>Time for a Malay test!</h2>
-    <p>Get ready to look at some pictures and tell us what it is in Malay.</p>
-    <button class="button" role="button" id="startButton">Begin</button>
+    <p>In this game, we will show you some pictures, and you will need to say out loud what they are called in Malay.<br><br>Click the button to start!</p>
+    <button class="button" role="button" id="startButton">Start</button>
 
     <div id="question"></div>
     <div id="timer"></div>
@@ -213,10 +213,10 @@ function shuffleQuestionsAndImages() {
         function nextQuestion() {
             if (currentQuestionIndex === questions.length - 1) {
                 document.body.innerHTML = `
-                    <h1>Trilingo</h1>
-                    <h2>Let's play a game!</h2>
-                    <p>We'll show you some photos, and if you can say out what they are in Malay, you'll get a star ⭐.</p>
-                    <button class="button" role="button" id="startButton">Begin</button>`;
+					<h1>Trilingo</h1>
+    <h2>Time for a Malay test!</h2>
+    <p>In this game, we will show you some pictures, and you will need to say out loud what they are called in Malay.<br><br>Click the button to start!</p>
+    <button class="button" role="button" id="startButton">Start</button>`;
                 document.getElementById("startButton").addEventListener("click", startTest);
             } else {
                 currentQuestionIndex++;
@@ -300,23 +300,50 @@ function shuffleQuestionsAndImages() {
             }
         }
 
-        function showRecordedAnswer(answer) {
-            document.getElementById("question").style.display = "none";
-            document.getElementById("timer").style.display = "none";
-            document.getElementById("recordedAnswer").innerHTML = `<h3>What we heard you say:<br></h3><p>${answer}</p>`;
-            document.getElementById("recordedAnswer").style.display = "block";
-            document.getElementById("checkResult").style.display = "block";
-        }
+         function showRecordedAnswer(answer) {
+    document.getElementById("question").style.display = "none";
+    document.getElementById("timer").style.display = "none";
+    var currentQuestion = questions[currentQuestionIndex];
+    var currentImage = images[currentQuestionIndex];
+    document.getElementById("recordedAnswer").innerHTML = `
+        <h3>What we heard you say:</h3>
+        <p>${answer}</p>
+        <div class="question-image">
+            <img src="${currentImage}" alt="${currentQuestion}" style="width: 100%; height: auto;">
+        </div>
+    `;
 
-        function checkResult() {
-            var correctAnswer = questions[currentQuestionIndex];
-            if (recordedAnswer.includes(correctAnswer)) {
-                showResult("correct");
-            } else {
-                showResult("wrong");
-            }
-            document.getElementById("checkResult").style.display = "none";
-        }
+    var correctAnswer = questions[currentQuestionIndex];
+    var resultElement = document.getElementById("result");
+
+    if (answer.includes(correctAnswer)) {
+        score++;
+        resultElement.innerHTML = `<h2>Congratulations. You are right!</h2>`;
+    } else {
+        resultElement.innerHTML = `<h2>Oops, you didn't answer correctly.</h2>`;
+    }
+
+    var currentQuestionNumber = currentQuestionIndex + 1;
+    var scoreDisplay = `${score}/${currentQuestionNumber}`;
+    var stars = score > 0 ? '⭐'.repeat(score) : '';
+
+    if (currentQuestionIndex === questions.length - 1) {
+        resultElement.innerHTML += `<p>The correct answer is ${correctAnswer}</p>`;
+        resultElement.innerHTML += `<h2>Your final score:<br>${scoreDisplay}</h2>`;
+        document.getElementById("next").textContent = "Try Again";
+        document.getElementById("next").addEventListener("click", function() {
+            window.location.href = window.location.origin + window.location.pathname;
+        });
+    } else {
+        resultElement.innerHTML += `<p>The correct answer is ${correctAnswer}</p>`;
+        resultElement.innerHTML += `<h2>Your score:<br>${scoreDisplay}<br>${stars}</h2>`;
+        document.getElementById("next").textContent = "Next Question";
+    }
+
+    document.getElementById("recordedAnswer").style.display = "block";
+    resultElement.style.display = "block";
+    document.getElementById("next").style.display = "block";
+}
     </script>
 </body>
 </html>
