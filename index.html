@@ -142,12 +142,33 @@ h3 {
         document.getElementById("next").addEventListener("click", nextQuestion);
 
         function startTest() {
-            document.querySelector("p").style.display = "none";
-            document.querySelector("h2").style.display = "none";
-            document.getElementById("startButton").style.display = "none";
-            currentQuestionIndex = 0;
-            askQuestion();
-        }
+    document.querySelector("p").style.display = "none";
+    document.querySelector("h2").style.display = "none";
+    document.getElementById("startButton").style.display = "none";
+    currentQuestionIndex = 0;
+    
+    // Shuffle questions and images
+    shuffleQuestionsAndImages();
+    
+    // Ask the first question
+    askQuestion();
+}
+
+// Function to shuffle questions and images arrays
+function shuffleQuestionsAndImages() {
+    // Combine questions and images into one array of objects
+    var combinedArray = questions.map((q, index) => ({ question: q, image: images[index] }));
+    
+    // Shuffle the combined array
+    for (let i = combinedArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [combinedArray[i], combinedArray[j]] = [combinedArray[j], combinedArray[i]];
+    }
+    
+    // Extract questions and images back to separate arrays
+    questions = combinedArray.slice(0, 5).map(obj => obj.question);
+    images = combinedArray.slice(0, 5).map(obj => obj.image);
+}
 
         function askQuestion() {
             if (currentQuestionIndex < questions.length) {
