@@ -117,114 +117,112 @@ h3 {
 </style>
 </head>
 <body>
-<h1>Trilingo</h1>
-<h2>Let's play a game!</h2>
-<p>We'll show you some photos, and if you can say out what they are in Malay, you'll get a star ⭐.</p>
-<button class="button" role="button" id="startButton">Begin</button>
+    <h1>Trilingo</h1>
+    <h2>Let's play a game!</h2>
+    <p>We'll show you some photos, and if you can say out what they are in Malay, you'll get a star ⭐.</p>
+    <button class="button" role="button" id="startButton">Begin</button>
 
-<div id="question"></div>
-<div id="timer"></div>
-<div id="recordedAnswer"></div>
-<button class="button" role="button" id="checkResult">Check Answer</button>
-<div id="result"></div>
-<button class="button" role="button" id="next">Next Question</button>
+    <div id="question"></div>
+    <div id="timer"></div>
+    <div id="recordedAnswer"></div>
+    <button class="button" role="button" id="checkResult">Check Answer</button>
+    <div id="result"></div>
+    <button class="button" role="button" id="next">Next Question</button>
 
-<script>
-    var questions = ["anjing", "gajah", "harimau", "tembikai", "nenas", "epal"];
-    var images = ["anjing.jpeg", "gajah.jpeg", "harimau.jpeg", "tembikai.jpeg", "nenas.jpeg", "epal.jpeg" ]; // File names of the corresponding images
-    var currentQuestionIndex = 0;
-    var userAnswer = "";
-    var recordedAnswer = "";
+    <script>
+        var questions = ["anjing", "gajah", "harimau", "tembikai", "nenas", "epal"];
+        var images = ["anjing.jpeg", "gajah.jpeg", "harimau.jpeg", "tembikai.jpeg", "nenas.jpeg", "epal.jpeg"];
+        var currentQuestionIndex = 0;
+        var userAnswer = "";
+        var score = 0;
+        var stars = score > 0 ? '⭐'.repeat(score) : '0';
 
-    document.getElementById("startButton").addEventListener("click", startTest);
-    document.getElementById("checkResult").addEventListener("click", checkResult);
-    document.getElementById("next").addEventListener("click", nextQuestion);
-
-    function startTest() {
-        document.querySelector("p").style.display = "none";
-        document.querySelector("h2").style.display = "none";
-        document.getElementById("startButton").style.display = "none";
-        currentQuestionIndex = 0;
-        askQuestion();
-    }
-
-    function askQuestion() {
-        if (currentQuestionIndex < questions.length) {
-            var currentQuestion = questions[currentQuestionIndex];
-            var currentImage = images[currentQuestionIndex];
-            document.getElementById("question").innerHTML = `<div class="question-image"><img src="${currentImage}" alt="${currentQuestion}" style="width: 100%; height: auto;"></div>`;
-            document.getElementById("timer").innerHTML = `<h3>Time left:</h3><h2>5 seconds</h2>`;
-            document.getElementById("question").style.display = "block";
-            document.getElementById("timer").style.display = "block";
-            document.getElementById("recordedAnswer").style.display = "none";
-            document.getElementById("checkResult").style.display = "none";
-            document.getElementById("result").style.display = "none";
-            startTimer();
-            startListening();
-        } else {
-            endTest();
-        }
-    }
-
-    function startTimer() {
-        var seconds = 5;
-        var timer = setInterval(function() {
-            seconds--;
-            document.getElementById("timer").innerHTML = `<h3>Time left:</h3><h2>${seconds} seconds</h2>`;
-            if (seconds === 0) {
-                clearInterval(timer);
-                document.getElementById("timer").style.display = "none";
-                if (!userAnswer) {
-                    recordedAnswer = "Time's up";
-                    showRecordedAnswer(recordedAnswer);
-                }
-                stopListening();
-            }
-        }, 1000);
-    }
-
-function nextQuestion() {
-    if (currentQuestionIndex === questions.length - 1) {
-        document.body.innerHTML = `
-            <h1>Trilingo</h1>
-            <h2>Let's play a game!</h2>
-            <p>We'll show you some photos, and if you can say out what they are in Malay, you'll get a star ⭐.</p>
-            <button class="button" role="button" id="startButton">Begin</button>`;
         document.getElementById("startButton").addEventListener("click", startTest);
-    } else {
-        currentQuestionIndex++;
-        userAnswer = "";
-        recordedAnswer = "";
-        askQuestion();
-        document.getElementById("next").style.display = "none";
-    }
-}
+        document.getElementById("checkResult").addEventListener("click", checkResult);
+        document.getElementById("next").addEventListener("click", nextQuestion);
 
-    function showResult(result) {
+        function startTest() {
+            document.querySelector("p").style.display = "none";
+            document.querySelector("h2").style.display = "none";
+            document.getElementById("startButton").style.display = "none";
+            currentQuestionIndex = 0;
+            askQuestion();
+        }
+
+        function askQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                var currentQuestion = questions[currentQuestionIndex];
+                var currentImage = images[currentQuestionIndex];
+                document.getElementById("question").innerHTML = `<div class="question-image"><img src="${currentImage}" alt="${currentQuestion}" style="width: 100%; height: auto;"></div>`;
+                document.getElementById("timer").innerHTML = `<h3>Time left:</h3><h2>5 seconds</h2>`;
+                document.getElementById("question").style.display = "block";
+                document.getElementById("timer").style.display = "block";
+                document.getElementById("recordedAnswer").style.display = "none";
+                document.getElementById("checkResult").style.display = "none";
+                document.getElementById("result").style.display = "none";
+                startTimer();
+                startListening();
+            } else {
+                endTest();
+            }
+        }
+
+        function startTimer() {
+            var seconds = 5;
+            var timer = setInterval(function() {
+                seconds--;
+                document.getElementById("timer").innerHTML = `<h3>Time left:</h3><h2>${seconds} seconds</h2>`;
+                if (seconds === 0) {
+                    clearInterval(timer);
+                    document.getElementById("timer").style.display = "none";
+                    if (!userAnswer) {
+                        recordedAnswer = "Time's up";
+                        showRecordedAnswer(recordedAnswer);
+                    }
+                    stopListening();
+                }
+            }, 1000);
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex === questions.length - 1) {
+                document.body.innerHTML = `
+                    <h1>Trilingo</h1>
+                    <h2>Let's play a game!</h2>
+                    <p>We'll show you some photos, and if you can say out what they are in Malay, you'll get a star ⭐.</p>
+                    <button class="button" role="button" id="startButton">Begin</button>`;
+                document.getElementById("startButton").addEventListener("click", startTest);
+            } else {
+                currentQuestionIndex++;
+                userAnswer = "";
+                askQuestion();
+                document.getElementById("next").style.display = "none";
+            }
+        }
+
+        function showResult(result) {
     var resultElement = document.getElementById("result");
     var currentQuestion = questions[currentQuestionIndex];
-    var score = 0;
 
     if (result === "correct") {
         score++;
     }
 
+    var stars = score > 0 ? '⭐'.repeat(score) : '0';
+
     if (currentQuestionIndex === questions.length - 1) {
         resultElement.innerHTML = `<h2>${result === "correct" ? "You are right!" : "You are wrong."}</h2>`;
         resultElement.innerHTML += `<p>The correct answer is ${currentQuestion}</p>`;
-        resultElement.innerHTML += `<h2>Your final score:<br>${score}<span style="font-size: 24px;">${'⭐'.repeat(score)}</span></h2>`;
+        resultElement.innerHTML += `<h2>Your final score:<br>${stars}</h2>`;
         document.getElementById("next").textContent = "Try Again";
         document.getElementById("next").addEventListener("click", function() {
-            window.location.href = window.location.origin + window.location.pathname; // Reload the webpage
+            window.location.href = window.location.origin + window.location.pathname;
         });
     } else {
         resultElement.innerHTML = `<h2>${result === "correct" ? "You are right!" : "You are wrong."}</h2>`;
         resultElement.innerHTML += `<p>The correct answer is ${currentQuestion}</p>`;
-        resultElement.innerHTML += `<h2>Your score:<br>${score}<span style="font-size: 24px;">${'⭐'.repeat(score)}</span></h2>`;
+        resultElement.innerHTML += `<h2>Your score:<br>${stars}</h2>`;
         document.getElementById("next").textContent = "Next Question";
-        document.getElementById("next").removeEventListener("click", function() {
-            window.location.href = window.location.origin + window.location.pathname; // Reload the webpage
-        });
     }
 
     resultElement.style.display = "block";
@@ -232,69 +230,67 @@ function nextQuestion() {
     document.getElementById("recordedAnswer").style.display = "none";
 }
 
-
-    function startListening() {
-        var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-        if (!recognition) {
-            console.error('Speech recognition not supported.');
-            return;
-        }
-
-        recognition.lang = "ms-MY";
-        recognition.continuous = false;
-        recognition.interimResults = false;
-
-        recognition.onstart = function() {
-            console.log('Speech recognition started.');
-        };
-
-        recognition.onerror = function(event) {
-            console.error('Speech recognition error:', event.error);
-            recordedAnswer = "Error";
-            showRecordedAnswer(recordedAnswer);
-        };
-
-        recognition.onresult = function(event) {
-            userAnswer = event.results[0][0].transcript.toLowerCase();
-            recordedAnswer = userAnswer;
-            showRecordedAnswer(recordedAnswer);
-        };
-
-        recognition.start();
-        setTimeout(function() {
-            recognition.stop();
-            if (!userAnswer) {
-                recordedAnswer = "Sorry, we couldn't hear what you said.";
-                showRecordedAnswer(recordedAnswer);
+        function startListening() {
+            var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+            if (!recognition) {
+                console.error('Speech recognition not supported.');
+                return;
             }
-        }, 5000);
-    }
 
-    function stopListening() {
-        var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-        if (recognition) {
-            recognition.stop();
+            recognition.lang = "ms-MY";
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onstart = function() {
+                console.log('Speech recognition started.');
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error:', event.error);
+                recordedAnswer = "Error";
+                showRecordedAnswer(recordedAnswer);
+            };
+
+            recognition.onresult = function(event) {
+                userAnswer = event.results[0][0].transcript.toLowerCase();
+                recordedAnswer = userAnswer;
+                showRecordedAnswer(recordedAnswer);
+            };
+
+            recognition.start();
+            setTimeout(function() {
+                recognition.stop();
+                if (!userAnswer) {
+                    recordedAnswer = "Sorry, we couldn't hear what you said.";
+                    showRecordedAnswer(recordedAnswer);
+                }
+                 }, 5000);
         }
-    }
 
-    function showRecordedAnswer(answer) {
-        document.getElementById("question").style.display = "none";
-        document.getElementById("timer").style.display = "none";
-        document.getElementById("recordedAnswer").innerHTML = `<h3>Here's what we heard you say:<br></h3><p>${answer}</p>`;
-        document.getElementById("recordedAnswer").style.display = "block";
-        document.getElementById("checkResult").style.display = "block";
-    }
-
-    function checkResult() {
-        var correctAnswer = questions[currentQuestionIndex];
-        if (recordedAnswer.includes(correctAnswer)) {
-            showResult("correct");
-        } else {
-            showResult("wrong");
+        function stopListening() {
+            var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+            if (recognition) {
+                recognition.stop();
+            }
         }
-        document.getElementById("checkResult").style.display = "none";
-    }
 
-</script>
+        function showRecordedAnswer(answer) {
+            document.getElementById("question").style.display = "none";
+            document.getElementById("timer").style.display = "none";
+            document.getElementById("recordedAnswer").innerHTML = `<h3>Here's what we heard you say:<br></h3><p>${answer}</p>`;
+            document.getElementById("recordedAnswer").style.display = "block";
+            document.getElementById("checkResult").style.display = "block";
+        }
+
+        function checkResult() {
+            var correctAnswer = questions[currentQuestionIndex];
+            if (recordedAnswer.includes(correctAnswer)) {
+                showResult("correct");
+            } else {
+                showResult("wrong");
+            }
+            document.getElementById("checkResult").style.display = "none";
+        }
+    </script>
 </body>
 </html>
