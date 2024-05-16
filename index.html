@@ -153,7 +153,12 @@ h3 {
             if (currentQuestionIndex < questions.length) {
                 var currentQuestion = questions[currentQuestionIndex];
                 var currentImage = images[currentQuestionIndex];
-                document.getElementById("question").innerHTML = `<div class="question-image"><img src="${currentImage}" alt="${currentQuestion}" style="width: 100%; height: auto;"></div>`;
+                document.getElementById("question").innerHTML = `
+    			<h2>Question ${currentQuestionIndex + 1}</h2>
+    			<h3>What do you see in the photo?</h3>
+    			<div class="question-image">
+      			<img src="${currentImage}" alt="${currentQuestion}" style="width: 100%; height: auto;">
+   			</div>`;
                 document.getElementById("timer").innerHTML = `<h3>Time left:</h3><h2>5 seconds</h2>`;
                 document.getElementById("question").style.display = "block";
                 document.getElementById("timer").style.display = "block";
