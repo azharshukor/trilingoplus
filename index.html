@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Object Recognition Test</title>
+<title>Tutur</title>
 <style>
 
 	@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
@@ -11,23 +11,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 
-    html, body {
+    body {
     font-family: 'Poppins', sans-serif;
+    font-size: 14pt;
     margin: 0; /* Reset margin to ensure full coverage */
-    padding-left: 20px;
-    padding-right: 20px;
-    height: 100%; /* Ensure both html and body take up the full viewport height */
-}
-
-body {
-    background: linear-gradient(360deg, rgba(255,255,255,1) 0%, rgba(255,247,241,1) 100%);
+    padding-left: 40px;
+    padding-right: 40px;
     text-align: center;
+    background: #1F3235;
+    color: #FAF5E9;
+    
+    
 }
+    
     #question, #timer, #result, #recordedAnswer, #checkResult, #next {
         display: none;
     }
+    
     .button {
-  background-color: #D20062;
+  background-color: #009B4D;
   border: 0; 
   border-radius: 56px;
   color: #fff;
@@ -37,6 +39,7 @@ body {
   font-size: 18px;
   font-weight: 600;
   outline: 0;
+  padding-top: 20px;
   padding: 16px 21px;
   position: relative;
   text-align: center;
@@ -55,12 +58,12 @@ body {
   border-radius: 125px;
   content: "";
   height: 50%;
-  left: 7%;
+  left: 10%;
   opacity: .5;
   position: absolute;
   top: 0;
   transition: all .3s;
-  width: 86%;
+  width: 80%;
 }
 
 .button:hover {
@@ -69,45 +72,46 @@ body {
 }
 
  h1 {
-            font-family: 'Poetsen One';
+            font-family: 'Poppins';
             font-size: 30pt;
             font-weight: 800;
-            color: #D20062;
-	    line-height: 1;
-	    padding-top: 10px;
+            color: #FAF5E9;
+            line-height: 1;
+	    	padding-bottom: 10px;
+            padding-top: 10px;
         }
         
 h2 {
             font-family: 'Poppins';
-            font-size: 18pt;
+            font-size: 24pt;
             font-weight: 800;
-            color: #D20062;
-            margin-bottom: 20px; 
+            color: #FFCC00;
+            padding-bottom: 10px;
+            padding-top: 10px;
             margin-left: 40px;
             margin-right: 40px;
-            line-height: 1.5;
+            line-height: 1;
         }
         
 h3 {
             font-family: 'Poppins';
             font-size: 14pt;
             font-weight: 800;
-            color: black;
-            margin-bottom: 20px; 
+            color: #FFCC00; 
             margin-left: 40px;
             margin-right: 40px;
-            line-height: 1.5;
+            padding-top: 20px;
+            line-height: 1;
         }
         
  h4 {
             font-family: 'Poppins';
-            font-size: 14pt;
+            font-size: 18pt;
             font-weight: 800;
-            color: black;
-            margin-bottom: 20px; 
+            color: #FAF5E9; 
             margin-left: 40px;
             margin-right: 40px;
-            line-height: 1.5;
+            line-height: 1;
         }       
         
 
@@ -122,24 +126,24 @@ h3 {
     width: 200px;
     height: 200px;
     margin: 0 auto;
-    border: 2px solid #ffadcb;
+    border: 2px solid #009B4D;
 }
                 
-
 </style>
+
 </head>
 <body>
-    <h1>Trilingo</h1>
-    <h2>Time for a Malay test!</h2>
-    <p>In this game, we will show you some pictures, and you will need to say out loud what they are called in Malay.<br><br>Click the button to start!</p>
-    <button class="button" role="button" id="startButton">Start</button>
+    <h1>Tutur</h1>
+    <h2>Ayuh, cakap Melayu!</h2>
+    <p>Dalam permainan ini, anda harus katakan apa yang anda lihat dalam gambar yang ditunjukkan.<br><br>Tekan butang di bawah untuk mula.</p>
+    <button class="button" role="button" id="startButton">Mula Teka</button>
 
     <div id="question"></div>
     <div id="timer"></div>
     <div id="recordedAnswer"></div>
-    <button class="button" role="button" id="checkResult">Check Answer</button>
+    <button class="button" role="button" id="checkResult">Semak Jawabpan</button>
     <div id="result"></div>
-    <button class="button" role="button" id="next">Next Question</button>
+    <button class="button" role="button" id="next">Soalan Selanjutnya</button>
 
     <script>
         var questions = ["anjing", "gajah", "harimau", "tembikai", "nenas", "epal"];
@@ -186,12 +190,12 @@ function shuffleQuestionsAndImages() {
                 var currentQuestion = questions[currentQuestionIndex];
                 var currentImage = images[currentQuestionIndex];
                 document.getElementById("question").innerHTML = `
-    			<h3>Question ${currentQuestionIndex + 1}</h3>
-    			<h4>What do you see in the photo?</h4>
+    			<h3>Soalan ${currentQuestionIndex + 1}</h3>
+    			<h4>Apa yang anda lihat dalam gambar ini?</h4>
     			<div class="question-image">
       			<img src="${currentImage}" alt="${currentQuestion}" style="width: 100%; height: auto;">	
     </div>`;
-                document.getElementById("timer").innerHTML = `<h3>Time left:</h3><h4>5 seconds</h4>`;
+                document.getElementById("timer").innerHTML = `<h3>Masa yang tinggal:</h3><h4>5 saat</h4>`;
                 document.getElementById("question").style.display = "block";
                 document.getElementById("timer").style.display = "block";
                 document.getElementById("recordedAnswer").style.display = "none";
@@ -208,7 +212,7 @@ function shuffleQuestionsAndImages() {
             var seconds = 5;
             var timer = setInterval(function() {
                 seconds--;
-                document.getElementById("timer").innerHTML = `<h3>Time left:</h3><h4>${seconds} seconds</h4>`;
+                document.getElementById("timer").innerHTML = `<h3>Masa yang tinggal:</h3><h4>${seconds} saat</h4>`;
                 if (seconds === 0) {
                     clearInterval(timer);
                     document.getElementById("timer").style.display = "none";
@@ -224,10 +228,10 @@ function shuffleQuestionsAndImages() {
         function nextQuestion() {
             if (currentQuestionIndex === questions.length - 1) {
                 document.body.innerHTML = `
-                    <h1>Trilingo</h1>
-                    <h2>Time for a Malay test!</h2>
-                    <p>In this game, we will show you some pictures, and you will need to say out loud what they are called in Malay.<br><br>Click the button to start!</p>
-                    <button class="button" role="button" id="startButton">Start</button>`;
+                    <h1>Tutur</h1>
+    <h2>Ayuh, cakap Melayu!</h2>
+    <p>Dalam permainan ini, anda harus katakan apa yang anda lihat dalam gambar yang ditunjukkan.<br><br>Tekan butang di bawah untuk mula.</p>
+    <button class="button" role="button" id="startButton">Mula Teka</button>`;
                 document.getElementById("startButton").addEventListener("click", startTest);
             } else {
                 currentQuestionIndex++;
@@ -248,21 +252,22 @@ function shuffleQuestionsAndImages() {
                 <div class="question-image">
                     <img src="${currentImage}" alt="${currentQuestion}" style="width: 100%; height: auto;">
                 </div>
-                <h3>What we heard you say:</h3>
+                <h3>Apa yang kami dengar anda katakan...</h3>
                 <h4>${answer}</h4>
-                <h3>The correct answer is</h3>
+                <h3>Jawabpan yang betul adalah...</h3>
                 <h4>${correctAnswer}</h4>`;
           
 
             
             var resultElement = document.getElementById("result");
 
-            if (answer.includes(correctAnswer)) {
-                score++;
-                resultElement.innerHTML = `<h2>Congratulations. You are right!</h2>`;
-            } else {
-                resultElement.innerHTML = `<h2>Oops, you didn't answer correctly.</h2>`;
-            }
+           	if (answer.includes(correctAnswer)) {
+    score++;
+    resultElement.innerHTML = `<div style="background-color: #FFCC00; border-radius: 25px; padding: 20px; font-size: 14pt; color: black; display: inline-block;">Tahniah! Jawabpan anda betul.</div>`;
+} 			
+			else {
+    resultElement.innerHTML = `<div style="background-color: #FFCC00; border-radius: 25px; padding: 20px; font-size: 14pt; color: black; display: inline-block;">Maaf! Jawabpan anda tidak tepat.</div>`;
+}
 
             var currentQuestionNumber = currentQuestionIndex + 1;
             var scoreDisplay = `${score}/${currentQuestionNumber}`;
@@ -270,14 +275,14 @@ function shuffleQuestionsAndImages() {
 
             if (currentQuestionIndex === questions.length - 1) {
                 
-                resultElement.innerHTML += `<h3>Your final score:</h3><h4>${scoreDisplay}</h4>`;
+                resultElement.innerHTML += `<h3>Markah penuh:</h3><h4>${scoreDisplay}</h4>`;
                 document.getElementById("next").textContent = "Try Again";
                 document.getElementById("next").addEventListener("click", function() {
                     window.location.href = window.location.origin + window.location.pathname;
                 });
             } else {
                
-                resultElement.innerHTML += `<h3>Your score:</h3><h4>${scoreDisplay}<br>${stars}</h4>`;
+                resultElement.innerHTML += `<h3>Markah anda:</h3><h4>${scoreDisplay}<br>${stars}</h4>`;
                 document.getElementById("next").textContent = "Next Question";
             }
 
@@ -286,5 +291,7 @@ function shuffleQuestionsAndImages() {
             document.getElementById("next").style.display = "block";
         }
     </script>
+</body>
+</html>
 </body>
 </html>
