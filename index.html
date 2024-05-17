@@ -90,7 +90,7 @@ h2 {
             padding-top: 10px;
             margin-left: 40px;
             margin-right: 40px;
-            line-height: 1;
+            line-height: 1.2;
         }
         
 h3 {
@@ -101,7 +101,7 @@ h3 {
             margin-left: 40px;
             margin-right: 40px;
             padding-top: 20px;
-            line-height: 1;
+            line-height: 1.2;
         }
         
  h4 {
@@ -111,7 +111,7 @@ h3 {
             color: #FAF5E9; 
             margin-left: 40px;
             margin-right: 40px;
-            line-height: 1;
+            line-height: 1.2;
         }       
         
 
@@ -217,7 +217,7 @@ function shuffleQuestionsAndImages() {
                     clearInterval(timer);
                     document.getElementById("timer").style.display = "none";
                     if (!userAnswer) {
-                        recordedAnswer = "Time's up";
+                        recordedAnswer = "Maaf. Kami tidak dengar jawabpan anda.";
                         showAnswer(recordedAnswer);
                     }
                     stopListening();
@@ -263,33 +263,78 @@ function shuffleQuestionsAndImages() {
 
            	if (answer.includes(correctAnswer)) {
     score++;
-    resultElement.innerHTML = `<div style="background-color: #FFCC00; border-radius: 25px; padding: 20px; font-size: 14pt; color: black; display: inline-block;">Tahniah! Jawabpan anda betul.</div>`;
+    resultElement.innerHTML = `<div style="background-color: #FFCC00; border-radius: 25px; padding: 20px; font-size: 14pt; color: black; display: inline-block;">Tahniah kerana anda telah menjawab dengan betul.</div>`;
 } 			
 			else {
-    resultElement.innerHTML = `<div style="background-color: #FFCC00; border-radius: 25px; padding: 20px; font-size: 14pt; color: black; display: inline-block;">Maaf! Jawabpan anda tidak tepat.</div>`;
+    resultElement.innerHTML = `<div style="background-color: #FFCC00; border-radius: 25px; padding: 20px; font-size: 14pt; color: black; display: inline-block;">Jawabpan anda tidak tepat. Cuba lagi.</div>`;
 }
 
             var currentQuestionNumber = currentQuestionIndex + 1;
-            var scoreDisplay = `${score}/${currentQuestionNumber}`;
+            var scoreDisplay = `${score}/${currentQuestionNumber}<br>`;
             var stars = score > 0 ? '⭐'.repeat(score) : '';
 
             if (currentQuestionIndex === questions.length - 1) {
                 
                 resultElement.innerHTML += `<h3>Markah penuh:</h3><h4>${scoreDisplay}</h4>`;
-                document.getElementById("next").textContent = "Try Again";
+                document.getElementById("next").textContent = "Cuba lagi";
                 document.getElementById("next").addEventListener("click", function() {
                     window.location.href = window.location.origin + window.location.pathname;
                 });
             } else {
                
                 resultElement.innerHTML += `<h3>Markah anda:</h3><h4>${scoreDisplay}<br>${stars}</h4>`;
-                document.getElementById("next").textContent = "Next Question";
+                document.getElementById("next").textContent = "Soalan seterusnya";
             }
 
             document.getElementById("recordedAnswer").style.display = "block";
             resultElement.style.display = "block";
             document.getElementById("next").style.display = "block";
         }
+        
+ function startListening() {
+            var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+            if (!recognition) {
+                console.error('Speech recognition not supported.');
+                return;
+            }
+
+            recognition.lang = "ms-MY";
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onstart = function() {
+                console.log('Speech recognition started.');
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error:', event.error);
+                recordedAnswer = "Error";
+                showAnswer(recordedAnswer);
+            };
+
+            recognition.onresult = function(event) {
+                userAnswer = event.results[0][0].transcript.toLowerCase();
+                recordedAnswer = userAnswer;
+                showAnswer(recordedAnswer);
+            };
+
+            recognition.start();
+            setTimeout(function() {
+                recognition.stop();
+                if (!userAnswer) {
+                    recordedAnswer = "Maaf. Kami tidak dengar jawabpan anda.";
+                    showAnswer(recordedAnswer);
+                }
+                 }, 5000);
+        }
+
+        function stopListening() {
+            var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+            if (recognition) {
+                recognition.stop();
+            }
+        }        
+        
     </script>
 </body>
 </html>
