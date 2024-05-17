@@ -1,155 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tutur</title>
-<style>
-
-@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
-    
-@import url('https://fonts.googleapis.com/css2?family=HVD+Comic+Serif+Pro:wght@400;700&display=swap');
-
-    body {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 14pt;
-    margin: 0; /* Reset margin to ensure full coverage */
-    padding-left: 40px;
-    padding-right: 40px;
-    text-align: center;
-    background: #1F3235;
-    color: #FAF5E9;
-    font-weight: 600;
-    
-    
-}
-    
-    #question, #timer, #result, #recordedAnswer, #checkResult, #next {
-        display: none;
-    }
-    
-    .button {
-  background-color: #009B4D;
-  border: 0; 
-  border-radius: 56px;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: 'HVD Comic Serif Pro', sans-serif;
-  font-size: 18px;
-  font-weight: 400;
-  outline: 0;
-  padding-top: 20px;
-  padding: 16px 21px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transition: all .3s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  display: block;
-  margin: 40px auto;
-}
-
-.button:before {
-  background-color: initial;
-  background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
-  border-radius: 125px;
-  content: "";
-  height: 50%;
-  left: 10%;
-  opacity: .5;
-  position: absolute;
-  top: 0;
-  transition: all .3s;
-  width: 80%;
-}
-
-.button:hover {
-  box-shadow: rgba(255, 255, 255, .2) 0 3px 15px inset, rgba(0, 0, 0, .1) 0 3px 5px, rgba(0, 0, 0, .1) 0 10px 13px;
-  transform: scale(1.05);
-}
-
- h1 {
-            font-family: 'HVD Comic Serif Pro', sans-serif;
-            font-size: 30pt;
-            font-weight: 800;
-            color: #FAF5E9;
-            line-height: 1;
-	    	padding-bottom: 10px;
-            padding-top: 10px;
-        }
-        
-h2 {
-            font-family: 'Quicksand';
-            font-size: 24pt;
-            font-weight: 800;
-            color: #FFCC00;
-            padding-bottom: 10px;
-            padding-top: 10px;
-            margin-left: 40px;
-            margin-right: 40px;
-            line-height: 1;
-        }
-        
-h3 {
-            font-family: 'HVD Comic Serif Pro', sans-serif;
-            font-size: 14pt;
-            font-weight: 800;
-            color: #FFCC00; 
-            margin-left: 40px;
-            margin-right: 40px;
-            padding-top: 20px;
-            line-height: 1;
-        }
-        
- h4 {
-            font-family: 'Quicksand';
-            font-size: 18pt;
-            font-weight: 800;
-            color: #FAF5E9; 
-            margin-left: 40px;
-            margin-right: 40px;
-            line-height: 1;
-        }       
-        
-
-.question-image {
-    border-radius: 15px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    width: 200px;
-    height: 200px;
-    margin: 0 auto;
-    border: 2px solid #009B4D;
-}
-                
-</style>
-
-</head>
-<body>
-    <h1>TUTUR</h1>
-    <h2>Ayuh, cakap Melayu!</h2>
-    <p>Dalam permainan ini, anda harus sebutkan apa yang anda lihat dalam gambar yang akan ditunjukkan.<br><br>Tekan butang sedia untuk mula.</p>
-    <button class="button" role="button" id="startButton">Sedia</button>
-
-    <div id="question"></div>
-    <div id="timer"></div>
-    <div id="recordedAnswer"></div>
-    <button class="button" role="button" id="checkResult">Semak</button>
-    <div id="result"></div>
-    <button class="button" role="button" id="next">Soalan Selanjutnya</button>
-
-    <script>
+<script>
         var questions = ["anjing", "gajah", "harimau", "tembikai", "nenas", "epal"];
         var images = ["anjing.jpeg", "gajah.jpeg", "harimau.jpeg", "tembikai.jpeg", "nenas.jpeg", "epal.jpeg"];
         var currentQuestionIndex = 0;
@@ -222,7 +71,6 @@ function shuffleQuestionsAndImages() {
                     document.getElementById("timer").style.display = "none";
                     if (!userAnswer) {
                         recordedAnswer = "-";
-                        showAnswer(recordedAnswer);
                     }
                     stopListening();
                 }
@@ -232,7 +80,7 @@ function shuffleQuestionsAndImages() {
         function nextQuestion() {
             if (currentQuestionIndex === questions.length - 1) {
                 document.body.innerHTML = `
-                    <h1>TUTUR</h1>
+                    <h1>Tutur</h1>
     <h2>Ayuh, cakap Melayu!</h2>
     <p>Dalam permainan ini, anda harus sebutkan apa yang anda lihat dalam gambar yang akan ditunjukkan.<br><br>Tekan butang sedia untuk mula.</p>
     <button class="button" role="button" id="startButton">Sedia</button>`;
@@ -286,11 +134,15 @@ function shuffleQuestionsAndImages() {
     resultElement.innerHTML = 
 	    `<div style="background-color: #009B4D; border-radius: 25px; padding: 20px; font-size: 14pt; color: white; display: inline-block;">
      Syabas! Jawabpan anda betul.</div>`;
+     var text = `Syabas! Jawapan anda betul. Ini adalah ${currentQuestion}.`;
+speak(text);
 } 			
 			else {
     resultElement.innerHTML = 
 	    `<div style="background-color: #D20062; border-radius: 25px; padding: 20px; font-size: 14pt; color: white; display: inline-block;">
-     Oops! Jawabpan anda tidak tepat.</div>`;
+     Jawabpan anda tidak tepat.</div>`;
+     var text = `Jawapan anda tidak tepat. Ini adalah ${currentQuestion}.`;
+speak(text);
 }
 
             var currentQuestionNumber = currentQuestionIndex + 1;
@@ -357,10 +209,54 @@ function shuffleQuestionsAndImages() {
             if (recognition) {
                 recognition.stop();
             }
-        }        
+        }
+        
+function speak(text) {
+    // API key for Google Text-to-Speech
+    var apiKey = 'AIzaSyCt4pzJMVvYHs9e2-CbtWbmnkIas6Um48c';
+    // Voice name for Malay (Malaysia)
+    var voiceName = 'ms-MY-Standard-B';
+    // Base URL for Google Text-to-Speech API
+    var url = 'https://texttospeech.googleapis.com/v1/text:synthesize?key=' + apiKey;
+
+    // Create the request body
+    var requestBody = JSON.stringify({
+        input: {
+            text: text
+        },
+        voice: {
+            name: voiceName,
+            languageCode: 'ms-MY'
+        },
+        audioConfig: {
+            audioEncoding: 'LINEAR16'
+        }
+    });
+
+    // Send POST request to Google Text-to-Speech API
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: requestBody
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Extract audio content from the response
+        var audioContent = data.audioContent;
+        // Convert audio content to base64 format
+        var audioData = 'data:audio/wav;base64,' + audioContent;
+        // Create an audio element
+        var audio = new Audio(audioData);
+        // Play the audio
+        audio.play();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
         
     </script>
-</body>
-</html>
 </body>
 </html>
