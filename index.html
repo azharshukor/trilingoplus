@@ -302,7 +302,7 @@ speak(text);
 
             if (currentQuestionIndex === questions.length - 1) {
                 
-                resultElement.innerHTML += `<h3>Markah penuh:</h3><h4>${scoreDisplay}</h4>`;
+                resultElement.innerHTML += `<h3>Markah penuh:</h3><h4>${scoreDisplay}<br>${stars}</h4><p>Sudah selesai! Tekan butang untuk cuba lagi.<br></p>`;
                 document.getElementById("next").textContent = "Cuba lagi";
                 document.getElementById("next").addEventListener("click", function() {
                     window.location.href = window.location.origin + window.location.pathname;
@@ -411,7 +411,4 @@ function speak(text) {
     </script>
 </body>
 </html>
-</body>
-</html>
-</body>
-</html>
+
