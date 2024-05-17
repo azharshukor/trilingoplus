@@ -6,13 +6,16 @@
 <title>Tutur</title>
 <style>
 
-	@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+    
+@import url('https://fonts.googleapis.com/css2?family=HVD+Comic+Serif+Pro:wght@400;700&display=swap');
 
     body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     font-size: 14pt;
     margin: 0; /* Reset margin to ensure full coverage */
     padding-left: 40px;
@@ -20,6 +23,7 @@
     text-align: center;
     background: #1F3235;
     color: #FAF5E9;
+    font-weight: 600;
     
     
 }
@@ -35,9 +39,9 @@
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'HVD Comic Serif Pro', sans-serif;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
   outline: 0;
   padding-top: 20px;
   padding: 16px 21px;
@@ -72,7 +76,7 @@
 }
 
  h1 {
-            font-family: 'Poppins';
+            font-family: 'HVD Comic Serif Pro', sans-serif;
             font-size: 30pt;
             font-weight: 800;
             color: #FAF5E9;
@@ -82,7 +86,7 @@
         }
         
 h2 {
-            font-family: 'Poppins';
+            font-family: 'Quicksand';
             font-size: 24pt;
             font-weight: 800;
             color: #FFCC00;
@@ -90,28 +94,28 @@ h2 {
             padding-top: 10px;
             margin-left: 40px;
             margin-right: 40px;
-            line-height: 1.2;
+            line-height: 1;
         }
         
 h3 {
-            font-family: 'Poppins';
+            font-family: 'HVD Comic Serif Pro', sans-serif;
             font-size: 14pt;
             font-weight: 800;
             color: #FFCC00; 
             margin-left: 40px;
             margin-right: 40px;
             padding-top: 20px;
-            line-height: 1.2;
+            line-height: 1;
         }
         
  h4 {
-            font-family: 'Poppins';
+            font-family: 'Quicksand';
             font-size: 18pt;
             font-weight: 800;
             color: #FAF5E9; 
             margin-left: 40px;
             margin-right: 40px;
-            line-height: 1.2;
+            line-height: 1;
         }       
         
 
@@ -135,13 +139,13 @@ h3 {
 <body>
     <h1>Tutur</h1>
     <h2>Ayuh, cakap Melayu!</h2>
-    <p>Dalam permainan ini, anda harus katakan apa yang anda lihat dalam gambar yang ditunjukkan.<br><br>Tekan butang di bawah untuk mula.</p>
-    <button class="button" role="button" id="startButton">Mula Teka</button>
+    <p>Dalam permainan ini, anda harus sebutkan apa yang anda lihat dalam gambar yang akan ditunjukkan.<br><br>Tekan butang sedia untuk mula.</p>
+    <button class="button" role="button" id="startButton">Sedia</button>
 
     <div id="question"></div>
     <div id="timer"></div>
     <div id="recordedAnswer"></div>
-    <button class="button" role="button" id="checkResult">Semak Jawabpan</button>
+    <button class="button" role="button" id="checkResult">Semak</button>
     <div id="result"></div>
     <button class="button" role="button" id="next">Soalan Selanjutnya</button>
 
@@ -217,7 +221,7 @@ function shuffleQuestionsAndImages() {
                     clearInterval(timer);
                     document.getElementById("timer").style.display = "none";
                     if (!userAnswer) {
-                        recordedAnswer = "Maaf. Kami tidak dengar jawabpan anda.";
+                        recordedAnswer = "Jawabpan anda kurang jelas.";
                         showAnswer(recordedAnswer);
                     }
                     stopListening();
@@ -230,8 +234,8 @@ function shuffleQuestionsAndImages() {
                 document.body.innerHTML = `
                     <h1>Tutur</h1>
     <h2>Ayuh, cakap Melayu!</h2>
-    <p>Dalam permainan ini, anda harus katakan apa yang anda lihat dalam gambar yang ditunjukkan.<br><br>Tekan butang di bawah untuk mula.</p>
-    <button class="button" role="button" id="startButton">Mula Teka</button>`;
+    <p>Dalam permainan ini, anda harus sebutkan apa yang anda lihat dalam gambar yang akan ditunjukkan.<br><br>Tekan butang sedia untuk mula.</p>
+    <button class="button" role="button" id="startButton">Sedia</button>`;
                 document.getElementById("startButton").addEventListener("click", startTest);
             } else {
                 currentQuestionIndex++;
@@ -252,9 +256,9 @@ function shuffleQuestionsAndImages() {
                 <div class="question-image">
                     <img src="${currentImage}" alt="${currentQuestion}" style="width: 100%; height: auto;">
                 </div>
-                <h3>Apa yang kami dengar anda katakan...</h3>
+                <h3>Jawabpan yang kami dengar daripada anda:</h3>
                 <h4>${answer}</h4>
-                <h3>Jawabpan yang betul adalah...</h3>
+                <h3>Jawabpan yang betul:</h3>
                 <h4>${correctAnswer}</h4>`;
           
 
@@ -263,10 +267,14 @@ function shuffleQuestionsAndImages() {
 
            	if (answer.includes(correctAnswer)) {
     score++;
-    resultElement.innerHTML = `<div style="background-color: #FFCC00; border-radius: 25px; padding: 20px; font-size: 14pt; color: black; display: inline-block;">Tahniah kerana anda telah menjawab dengan betul.</div>`;
+    resultElement.innerHTML = 
+	    `<div style="background-color: #009B4D; border-radius: 25px; padding: 20px; font-size: 14pt; color: white; display: inline-block;">
+     Syabas! Jawabpan anda betul.</div>`;
 } 			
 			else {
-    resultElement.innerHTML = `<div style="background-color: #FFCC00; border-radius: 25px; padding: 20px; font-size: 14pt; color: black; display: inline-block;">Jawabpan anda tidak tepat. Cuba lagi.</div>`;
+    resultElement.innerHTML = 
+	    `<div style="background-color: #D20062; border-radius: 25px; padding: 20px; font-size: 14pt; color: white; display: inline-block;">
+     Jawabpan anda tidak tepat.</div>`;
 }
 
             var currentQuestionNumber = currentQuestionIndex + 1;
@@ -322,7 +330,7 @@ function shuffleQuestionsAndImages() {
             setTimeout(function() {
                 recognition.stop();
                 if (!userAnswer) {
-                    recordedAnswer = "Maaf. Kami tidak dengar jawabpan anda.";
+                    recordedAnswer = "Jawabpan anda kurang jelas.";
                     showAnswer(recordedAnswer);
                 }
                  }, 5000);
