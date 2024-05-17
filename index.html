@@ -98,6 +98,18 @@ h3 {
             margin-right: 40px;
             line-height: 1.5;
         }
+        
+ h4 {
+            font-family: 'Poppins';
+            font-size: 14pt;
+            font-weight: 800;
+            color: black;
+            margin-bottom: 20px; 
+            margin-left: 40px;
+            margin-right: 40px;
+            line-height: 1.5;
+        }       
+        
 
 .question-image {
     border-radius: 15px;
@@ -135,7 +147,6 @@ h3 {
         var currentQuestionIndex = 0;
         var userAnswer = "";
         var score = 0;
-        var stars = score > 0 ? '⭐'.repeat(score) : '0';
 
         document.getElementById("startButton").addEventListener("click", startTest);
         document.getElementById("checkResult").addEventListener("click", checkResult);
@@ -175,12 +186,12 @@ function shuffleQuestionsAndImages() {
                 var currentQuestion = questions[currentQuestionIndex];
                 var currentImage = images[currentQuestionIndex];
                 document.getElementById("question").innerHTML = `
-    			<h2>Question ${currentQuestionIndex + 1}</h2>
-    			<h3>What do you see in the photo?</h3>
+    			<h3>Question ${currentQuestionIndex + 1}</h3>
+    			<h4>What do you see in the photo?</h4>
     			<div class="question-image">
-      			<img src="${currentImage}" alt="${currentQuestion}" style="width: 100%; height: auto;">
-   			</div>`;
-                document.getElementById("timer").innerHTML = `<h3>Time left:</h3><h2>5 seconds</h2>`;
+      			<img src="${currentImage}" alt="${currentQuestion}" style="width: 100%; height: auto;">	
+    </div>`;
+                document.getElementById("timer").innerHTML = `<h3>Time left:</h3><h4>5 seconds</h4>`;
                 document.getElementById("question").style.display = "block";
                 document.getElementById("timer").style.display = "block";
                 document.getElementById("recordedAnswer").style.display = "none";
@@ -197,13 +208,13 @@ function shuffleQuestionsAndImages() {
             var seconds = 5;
             var timer = setInterval(function() {
                 seconds--;
-                document.getElementById("timer").innerHTML = `<h3>Time left:</h3><h2>${seconds} seconds</h2>`;
+                document.getElementById("timer").innerHTML = `<h3>Time left:</h3><h4>${seconds} seconds</h4>`;
                 if (seconds === 0) {
                     clearInterval(timer);
                     document.getElementById("timer").style.display = "none";
                     if (!userAnswer) {
                         recordedAnswer = "Time's up";
-                        showRecordedAnswer(recordedAnswer);
+                        showAnswer(recordedAnswer);
                     }
                     stopListening();
                 }
@@ -213,10 +224,10 @@ function shuffleQuestionsAndImages() {
         function nextQuestion() {
             if (currentQuestionIndex === questions.length - 1) {
                 document.body.innerHTML = `
-					<h1>Trilingo</h1>
-    <h2>Time for a Malay test!</h2>
-    <p>In this game, we will show you some pictures, and you will need to say out loud what they are called in Malay.<br><br>Click the button to start!</p>
-    <button class="button" role="button" id="startButton">Start</button>`;
+                    <h1>Trilingo</h1>
+                    <h2>Time for a Malay test!</h2>
+                    <p>In this game, we will show you some pictures, and you will need to say out loud what they are called in Malay.<br><br>Click the button to start!</p>
+                    <button class="button" role="button" id="startButton">Start</button>`;
                 document.getElementById("startButton").addEventListener("click", startTest);
             } else {
                 currentQuestionIndex++;
@@ -226,124 +237,54 @@ function shuffleQuestionsAndImages() {
             }
         }
 
-        function showResult(result) {
-    var resultElement = document.getElementById("result");
-    var currentQuestion = questions[currentQuestionIndex];
+        function showAnswer(answer) {
+            document.getElementById("question").style.display = "none";
+            document.getElementById("timer").style.display = "none";
+            var currentQuestion = questions[currentQuestionIndex];
+            var currentImage = images[currentQuestionIndex];
+            var correctAnswer = questions[currentQuestionIndex];
+            document.getElementById("recordedAnswer").innerHTML = `
+                
+                <div class="question-image">
+                    <img src="${currentImage}" alt="${currentQuestion}" style="width: 100%; height: auto;">
+                </div>
+                <h3>What we heard you say:</h3>
+                <h4>${answer}</h4>
+                <h3>The correct answer is</h3>
+                <h4>${correctAnswer}</h4>`;
+          
 
-    if (result === "correct") {
-        score++;
-    }
+            
+            var resultElement = document.getElementById("result");
 
-    var stars = score > 0 ? '⭐'.repeat(score) : '0';
-
-    if (currentQuestionIndex === questions.length - 1) {
-        resultElement.innerHTML = `<h2>${result === "correct" ? "Congratulations. You are right!" : "Oops, you didn't answer correctly."}</h2>`;
-        resultElement.innerHTML += `<p>The correct answer is ${currentQuestion}</p>`;
-        resultElement.innerHTML += `<h2>Your final score:<br>${stars}</h2>`;
-        document.getElementById("next").textContent = "Try Again";
-        document.getElementById("next").addEventListener("click", function() {
-            window.location.href = window.location.origin + window.location.pathname;
-        });
-    } else {
-        resultElement.innerHTML = `<h2>${result === "correct" ? "Congratulations. You are right!" : "Oops, you didn't answer correctly."}</h2>`;
-        resultElement.innerHTML += `<p>The correct answer is ${currentQuestion}</p>`;
-        resultElement.innerHTML += `<h2>Your score:<br>${stars}</h2>`;
-        document.getElementById("next").textContent = "Next Question";
-    }
-
-    resultElement.style.display = "block";
-    document.getElementById("next").style.display = "block";
-    document.getElementById("recordedAnswer").style.display = "none";
-}
-
-        function startListening() {
-            var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-            if (!recognition) {
-                console.error('Speech recognition not supported.');
-                return;
+            if (answer.includes(correctAnswer)) {
+                score++;
+                resultElement.innerHTML = `<h2>Congratulations. You are right!</h2>`;
+            } else {
+                resultElement.innerHTML = `<h2>Oops, you didn't answer correctly.</h2>`;
             }
 
-            recognition.lang = "ms-MY";
-            recognition.continuous = false;
-            recognition.interimResults = false;
+            var currentQuestionNumber = currentQuestionIndex + 1;
+            var scoreDisplay = `${score}/${currentQuestionNumber}`;
+            var stars = score > 0 ? '⭐'.repeat(score) : '';
 
-            recognition.onstart = function() {
-                console.log('Speech recognition started.');
-            };
-
-            recognition.onerror = function(event) {
-                console.error('Speech recognition error:', event.error);
-                recordedAnswer = "Error";
-                showRecordedAnswer(recordedAnswer);
-            };
-
-            recognition.onresult = function(event) {
-                userAnswer = event.results[0][0].transcript.toLowerCase();
-                recordedAnswer = userAnswer;
-                showRecordedAnswer(recordedAnswer);
-            };
-
-            recognition.start();
-            setTimeout(function() {
-                recognition.stop();
-                if (!userAnswer) {
-                    recordedAnswer = "Sorry, we couldn't hear you.";
-                    showRecordedAnswer(recordedAnswer);
-                }
-                 }, 5000);
-        }
-
-        function stopListening() {
-            var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-            if (recognition) {
-                recognition.stop();
+            if (currentQuestionIndex === questions.length - 1) {
+                
+                resultElement.innerHTML += `<h3>Your final score:</h3><h4>${scoreDisplay}</h4>`;
+                document.getElementById("next").textContent = "Try Again";
+                document.getElementById("next").addEventListener("click", function() {
+                    window.location.href = window.location.origin + window.location.pathname;
+                });
+            } else {
+               
+                resultElement.innerHTML += `<h3>Your score:</h3><h4>${scoreDisplay}<br>${stars}</h4>`;
+                document.getElementById("next").textContent = "Next Question";
             }
+
+            document.getElementById("recordedAnswer").style.display = "block";
+            resultElement.style.display = "block";
+            document.getElementById("next").style.display = "block";
         }
-
-         function showRecordedAnswer(answer) {
-    document.getElementById("question").style.display = "none";
-    document.getElementById("timer").style.display = "none";
-    var currentQuestion = questions[currentQuestionIndex];
-    var currentImage = images[currentQuestionIndex];
-    document.getElementById("recordedAnswer").innerHTML = `
-        <h3>What we heard you say:</h3>
-        <p>${answer}</p>
-        <div class="question-image">
-            <img src="${currentImage}" alt="${currentQuestion}" style="width: 100%; height: auto;">
-        </div>
-    `;
-
-    var correctAnswer = questions[currentQuestionIndex];
-    var resultElement = document.getElementById("result");
-
-    if (answer.includes(correctAnswer)) {
-        score++;
-        resultElement.innerHTML = `<h2>Congratulations. You are right!</h2>`;
-    } else {
-        resultElement.innerHTML = `<h2>Oops, you didn't answer correctly.</h2>`;
-    }
-
-    var currentQuestionNumber = currentQuestionIndex + 1;
-    var scoreDisplay = `${score}/${currentQuestionNumber}`;
-    var stars = score > 0 ? '⭐'.repeat(score) : '';
-
-    if (currentQuestionIndex === questions.length - 1) {
-        resultElement.innerHTML += `<p>The correct answer is ${correctAnswer}</p>`;
-        resultElement.innerHTML += `<h2>Your final score:<br>${scoreDisplay}</h2>`;
-        document.getElementById("next").textContent = "Try Again";
-        document.getElementById("next").addEventListener("click", function() {
-            window.location.href = window.location.origin + window.location.pathname;
-        });
-    } else {
-        resultElement.innerHTML += `<p>The correct answer is ${correctAnswer}</p>`;
-        resultElement.innerHTML += `<h2>Your score:<br>${scoreDisplay}<br>${stars}</h2>`;
-        document.getElementById("next").textContent = "Next Question";
-    }
-
-    document.getElementById("recordedAnswer").style.display = "block";
-    resultElement.style.display = "block";
-    document.getElementById("next").style.display = "block";
-}
     </script>
 </body>
 </html>
