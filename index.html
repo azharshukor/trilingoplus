@@ -221,7 +221,7 @@ function shuffleQuestionsAndImages() {
                     clearInterval(timer);
                     document.getElementById("timer").style.display = "none";
                     if (!userAnswer) {
-                        recordedAnswer = "Jawabpan anda kurang jelas.";
+                        recordedAnswer = "-";
                         showAnswer(recordedAnswer);
                     }
                     stopListening();
@@ -251,16 +251,32 @@ function shuffleQuestionsAndImages() {
             var currentQuestion = questions[currentQuestionIndex];
             var currentImage = images[currentQuestionIndex];
             var correctAnswer = questions[currentQuestionIndex];
+            
+            if (answer === "-") {
+            
             document.getElementById("recordedAnswer").innerHTML = `
                 
                 <div class="question-image">
                     <img src="${currentImage}" alt="${currentQuestion}" style="width: 100%; height: auto;">
                 </div>
-                <h3>Jawabpan yang kami dengar daripada anda:</h3>
+                <h3>Apa yang kami dengar:</h3>
+                <h4 style="margin-bottom: 0;">${answer}<br><span style="font-size: 14pt; font-weight: 400; font-style: italic;">(Jawabpan anda kurang jelas)</span></h4>
+                <br>
+                <h3>Jawabpan yang betul:</h3>
+                <h4>${correctAnswer}</h4>`;
+          	}
+            else {
+            
+            document.getElementById("recordedAnswer").innerHTML = `
+                
+                <div class="question-image">
+                    <img src="${currentImage}" alt="${currentQuestion}" style="width: 100%; height: auto;">
+                </div>
+                <h3>Apa yang kami dengar:</h3>
                 <h4>${answer}</h4>
                 <h3>Jawabpan yang betul:</h3>
                 <h4>${correctAnswer}</h4>`;
-          
+			}
 
             
             var resultElement = document.getElementById("result");
@@ -274,7 +290,7 @@ function shuffleQuestionsAndImages() {
 			else {
     resultElement.innerHTML = 
 	    `<div style="background-color: #D20062; border-radius: 25px; padding: 20px; font-size: 14pt; color: white; display: inline-block;">
-     Jawabpan anda tidak tepat.</div>`;
+     Oops! Jawabpan anda tidak tepat.</div>`;
 }
 
             var currentQuestionNumber = currentQuestionIndex + 1;
@@ -330,7 +346,7 @@ function shuffleQuestionsAndImages() {
             setTimeout(function() {
                 recognition.stop();
                 if (!userAnswer) {
-                    recordedAnswer = "Jawabpan anda kurang jelas.";
+                    recordedAnswer = "-";
                     showAnswer(recordedAnswer);
                 }
                  }, 5000);
