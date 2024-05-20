@@ -357,48 +357,64 @@ speak(text);
         }
         
  function startListening() {
-            var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-            if (!recognition) {
-                console.error('Speech recognition not supported.');
-                return;
-            }
+    var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+    if (!recognition) {
+        console.error('Speech recognition not supported.');
+        return;
+    }
 
-            recognition.lang = "ms-MY";
-            recognition.continuous = false;
-            recognition.interimResults = false;
+    recognition.lang = "ms-MY";
+    recognition.continuous = false;
+    recognition.interimResults = false;
 
-            recognition.onstart = function() {
-                console.log('Speech recognition started.');
-            };
+    var hasAnswered = false; // Flag to track if showAnswer has been called
 
-            recognition.onerror = function(event) {
-                console.error('Speech recognition error:', event.error);
-                recordedAnswer = "Error";
-                showAnswer(recordedAnswer);
-            };
+    recognition.onstart = function() {
+        console.log('Speech recognition started.');
+    };
 
-            recognition.onresult = function(event) {
-                userAnswer = event.results[0][0].transcript.toLowerCase();
-                recordedAnswer = userAnswer;
-                showAnswer(recordedAnswer);
-            };
-
-            recognition.start();
-            setTimeout(function() {
-                recognition.stop();
-                if (!userAnswer) {
-                    recordedAnswer = "-";
-                    showAnswer(recordedAnswer);
-                }
-                 }, 5000);
+    recognition.onerror = function(event) {
+        if (!hasAnswered) {
+            console.error('Speech recognition error:', event.error);
+            recordedAnswer = "Error";
+            showAnswer(recordedAnswer);
+            hasAnswered = true; // Set the flag to true after calling showAnswer
         }
+    };
 
-        function stopListening() {
-            var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-            if (recognition) {
-                recognition.stop();
-            }
+    recognition.onresult = function(event) {
+        if (!hasAnswered) {
+            userAnswer = event.results[0][0].transcript.toLowerCase();
+            recordedAnswer = userAnswer;
+            showAnswer(recordedAnswer);
+            hasAnswered = true; // Set the flag to true after calling showAnswer
         }
+    };
+
+    recognition.onend = function() {
+        if (!hasAnswered) {
+            recordedAnswer = "-";
+            showAnswer(recordedAnswer);
+            hasAnswered = true; // Set the flag to true after calling showAnswer
+        }
+    };
+
+    recognition.start();
+
+    setTimeout(function() {
+        if (!hasAnswered) {
+            recognition.stop(); // Stopping the recognition process will trigger the onend event
+        }
+    }, 5000);
+}
+
+function stopListening() {
+    var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+    if (recognition) {
+        recognition.stop();
+    }
+}
+
         
 function speak(text) {
     // API key for Google Text-to-Speech
