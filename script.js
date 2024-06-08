@@ -109,6 +109,7 @@ var images = [
     document.querySelector("p").style.display = "none";
     document.querySelector("h2").style.display = "none";
     document.getElementById("startButton").style.display = "none";
+    document.querySelector("h5").style.display = "none";
     currentQuestionIndex = 0;
     
     // Shuffle questions and images
