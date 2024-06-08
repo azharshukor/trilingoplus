@@ -174,12 +174,8 @@ function shuffleQuestionsAndImages() {
 
         function nextQuestion() {
             if (currentQuestionIndex === questions.length - 1) {
-                document.body.innerHTML = `
-                    <h1></h1>
-    <h2>Ayuh, cakap Melayu!</h2>
-    <p>Dalam permainan ini, anda harus sebutkan apa yang anda lihat dalam gambar yang akan ditunjukkan.<br><br>Tekan butang sedia untuk mula.</p>
-    <button class="button" role="button" id="startButton">Sedia</button>`;
-                document.getElementById("startButton").addEventListener("click", startTest);
+                document.getElementById("next").addEventListener("click", function() {
+    window.location.href = "/";
             } else {
                 currentQuestionIndex++;
                 userAnswer = "";
