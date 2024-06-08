@@ -269,7 +269,7 @@ function speak(text) {
     // API key for Google Text-to-Speech
     var apiKey = 'AIzaSyCt4pzJMVvYHs9e2-CbtWbmnkIas6Um48c';
     // Voice name for Malay (Malaysia)
-    var voiceName = 'ms-MY-Standard-B';
+    var voiceName = 'ms-MY-Standard-C';
     // Base URL for Google Text-to-Speech API
     var url = 'https://texttospeech.googleapis.com/v1/text:synthesize?key=' + apiKey;
 
