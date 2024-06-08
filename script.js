@@ -251,7 +251,7 @@ speak(text);
                 resultElement.innerHTML += `<h3>Markah penuh:</h3><h4>${scoreDisplay}<br>${stars}</h4><p>Sudah selesai! Tekan butang untuk cuba lagi.<br></p>`;
                 document.getElementById("next").textContent = "Cuba lagi";
                 document.getElementById("next").addEventListener("click", function() {
-                    window.location.href = window.location.origin + window.location.pathname;
+    window.location.href = "/";
                 });
             } else {
                
