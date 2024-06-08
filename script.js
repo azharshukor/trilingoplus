@@ -173,15 +173,10 @@ function shuffleQuestionsAndImages() {
         }
 
         function nextQuestion() {
-            if (currentQuestionIndex === questions.length - 1) {
-                document.getElementById("next").addEventListener("click", function() {
-    window.location.href = "/";
-            } else {
                 currentQuestionIndex++;
                 userAnswer = "";
                 askQuestion();
                 document.getElementById("next").style.display = "none";
-            }
         }
 
         function showAnswer(answer) {
