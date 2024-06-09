@@ -198,7 +198,11 @@ function shuffleQuestionsAndImages() {
                 <h4 style="margin-bottom: 0;">${answer}<br><span style="font-size: 14pt; font-weight: 400; font-style: italic;">(Jawabpan anda kurang jelas)</span></h4>
                 <br>
                 <h3>Jawabpan yang betul:</h3>
-                <h4>${correctAnswer}</h4><div id="correctAnswerButton">PRESS</div>`;
+                <div id="correctAnswerButton"><h4>${correctAnswer}</h4></div>`;
+
+		 document.getElementById('correctAnswerButton').addEventListener('click', function() {
+    speak(`${correctAnswer}`);
+});   
           	}
             else {
             
@@ -211,10 +215,13 @@ function shuffleQuestionsAndImages() {
                 <h3>Apa yang kami dengar:</h3>
                 <h4>${answer}</h4>
                 <h3>Jawabpan yang betul:</h3>
-                <h4>${correctAnswer}</h4><div id="correctAnswerButton">PRESS</div>`;
-			}
+                <div id="correctAnswerButton"><h4>${correctAnswer}</h4></div>`;
 
-            
+            document.getElementById('correctAnswerButton').addEventListener('click', function() {
+    speak(`${correctAnswer}`);
+});
+
+		}
             var resultElement = document.getElementById("result");
 
            	if (answer.includes(correctAnswer)) {
