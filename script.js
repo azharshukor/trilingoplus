@@ -198,7 +198,7 @@ function shuffleQuestionsAndImages() {
                 <h4 style="margin-bottom: 0;">${answer}<br><span style="font-size: 14pt; font-weight: 400; font-style: italic;">(Jawabpan anda kurang jelas)</span></h4>
                 <br>
                 <h3>Jawabpan yang betul:</h3>
-                <div id="correctAnswer"><h4>${correctAnswer}</h4></div>`;
+                <h4>${correctAnswer}</h4><div id="correctAnswerButton">PRESS</div>`;
           	}
             else {
             
@@ -211,7 +211,7 @@ function shuffleQuestionsAndImages() {
                 <h3>Apa yang kami dengar:</h3>
                 <h4>${answer}</h4>
                 <h3>Jawabpan yang betul:</h3>
-                <div id="correctAnswer"><h4>${correctAnswer}</h4></div>`;
+                <h4>${correctAnswer}</h4><div id="correctAnswerButton">PRESS</div>`;
 			}
 
             
@@ -361,7 +361,6 @@ function speak(text) {
     });
 }
 
-var correctAnswerElement = document.getElementById("correctAnswer");
-correctAnswerElement.addEventListener('click', function() {
-    speak(correctAnswerElement.textContent);
-});
+document.getElementById(correctAnswerButton).addEventListener('click', function() {
+        speak(correctAnswer);
+    }
