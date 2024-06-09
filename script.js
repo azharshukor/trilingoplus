@@ -360,7 +360,3 @@ function speak(text) {
         console.error('Error:', error);
     });
 }
-
-document.getElementById(correctAnswerButton).addEventListener('click', function() {
-        speak(correctAnswer);
-    }
