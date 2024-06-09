@@ -363,5 +363,5 @@ function speak(text) {
 
 var correctAnswerElement = document.getElementById("correctAnswer");
 correctAnswerElement.addEventListener('click', function() {
-    speak(correctAnswer);
+    speak(correctAnswerElement.textContent);
 });
